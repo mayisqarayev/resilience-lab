@@ -3,6 +3,7 @@ package com.mayis.resilience_lab.service;
 import com.mayis.resilience_lab.client.ProviderStatusClient;
 import com.mayis.resilience_lab.dto.ProviderStatusResponse;
 import com.mayis.resilience_lab.model.ProviderStatus;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,7 @@ public class ProviderStatusService {
         this.client = client;
     }
 
+    @Retry(name = "providerStatusRetry")
     public ProviderStatusResponse getProviderStatus(String providerId) {
         ProviderStatus providerStatus = client.getStatus(providerId);
 

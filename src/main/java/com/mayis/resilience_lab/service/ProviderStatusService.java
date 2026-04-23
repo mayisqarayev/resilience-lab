@@ -42,6 +42,8 @@ public class ProviderStatusService {
     }
 
     public ProviderStatusResponse getProviderStatusFallback(String providerId, TransientDownstreamException ex) {
+        providerMetricsService.incrementFallback();
+
         return new ProviderStatusResponse(
                 providerId,
                 ProviderState.DEGRADED,

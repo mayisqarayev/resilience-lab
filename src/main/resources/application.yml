@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: resilience-lab
+
+resilience4j:
+  retry:
+    instances:
+      providerStatusRetry:
+        max-attempts: 3
+        wait-duration: 2s
+        retry-exceptions:
+          - com.mayis.resilience_lab.exception.TransientDownstreamException
+        ignore-exceptions:
+          - com.mayis.resilience_lab.exception.PermanentDownstreamException
+          - com.mayis.resilience_lab.exception.ProviderNotFoundException
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus

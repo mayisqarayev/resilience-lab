@@ -19,9 +19,11 @@ public class GlobalExceptionHandler {
             WebRequest webRequest
     ) {
         Map<String, Object> response = new HashMap<>();
-        response.put("errorDetails", webRequest.getDescription(false));
-        response.put("errorStatus", status.value());
-        response.put("errorTimeStamp", Instant.now());
+        response.put("timestamp", Instant.now());
+        response.put("status", status.value());
+        response.put("error", status.getReasonPhrase());
+        response.put("message", ex.getMessage());
+        response.put("path", webRequest.getDescription(false).replace("uri=", ""));
 
         return response;
     }
